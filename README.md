@@ -1,8 +1,8 @@
 ## Overview
 
-This project implements a simple receipt processor using Flask (Python) and Docker.
-It serves as a web service that meets the documented API outlined in the [api.yml](api.yml) file and proposes a 
-solution to Fetch Rewards' [receipt processor challenge](https://github.com/fetch-rewards/receipt-processor-challenge).
+This project implements a straightforward receipt processing service utilizing Flask (Python) and Docker. 
+It adheres to the API specifications outlined in the [api.yml](api.yml) file and serves as an effective solution for 
+the [receipt processor challenge](https://github.com/fetch-rewards/receipt-processor-challenge) posed by Fetch Rewards.
 
 ## System Requirements
 
@@ -12,13 +12,13 @@ solution to Fetch Rewards' [receipt processor challenge](https://github.com/fetc
 
 ### Starting Docker
 
-First and foremost, you'll need to start the Docker daemon. You can do this in one of two ways: by opening Docker 
-Desktop or by using systemd with the following command:
+Before running the app, make sure Docker is up and running. If you're using Docker Desktop, just open it. Otherwise, 
+you can start the daemon manually with:
 ```shell
 sudo systemctl start docker
 ```
 
-Alternatively, you can start it manually using:
+Alternatively, launch it directly with:
 ```shell
 dockerd
 ```
@@ -26,7 +26,7 @@ _To stop Docker when you have started it manually, press `Ctrl+C` in your termin
 
 ### Building and Deploying the Container
 
-You can either use your preferred IDE or run the following commands in your terminal:
+Navigate to the project's root directory and run:
 
 ``` shell
 docker build -t receipt-processor .
@@ -35,8 +35,8 @@ docker run -p 5000:5000 receipt-processor
 
 ### Making API Calls
 
-You can use any API platform you prefer, such as Postman, to make API calls to the web service. It will be accessible 
-at [http://localhost:5000](http://localhost:5000).
+Use curl, Postman, or any API testing tool to interact with the service. 
+It will be accessible at [http://localhost:5000](http://localhost:5000).
 
 ## Summary of API Specification
 
@@ -72,7 +72,7 @@ Example Response:
 { "points": 32 }
 ```
 
-# Rules
+## Rules
 
 These rules collectively define how many points should be awarded to a receipt.
 
@@ -86,7 +86,8 @@ These rules collectively define how many points should be awarded to a receipt.
   -  6 points if the day in the purchase date is odd.
   -  10 points if the time of purchase is after 2:00pm and before 4:00pm.
 
-### Examples
+## Example 1
+### Request:
 ```json
 {
   "retailer": "Target",
@@ -113,6 +114,7 @@ These rules collectively define how many points should be awarded to a receipt.
   "total": "35.35"
 }
 ```
+### Computations:
 ```
 Total Points: 28
 Breakdown:
@@ -126,6 +128,8 @@ Breakdown:
   + ---------
   = 28 points
 ```
+## Example 2
+### Request:
 ```json
 {
   "retailer": "M&M Corner Market",
@@ -149,6 +153,7 @@ Breakdown:
   "total": "9.00"
 }
 ```
+### Computations:
 ```
 Total Points: 109
 Breakdown:
