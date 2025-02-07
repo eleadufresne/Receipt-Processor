@@ -1,6 +1,5 @@
 # API
 from flask import Flask, jsonify, request
-from flask_restful import Api, Resource
 # validation
 from jsonschema import validate, ValidationError
 from schemas import receipt_schema
@@ -118,7 +117,7 @@ def submit_receipt():
     return jsonify({'id': generated_id}), 200
 
 # route to get the points awarded to a given receipt
-@app.route(f'/receipts/<receipt_id>/points', methods=["POST"])
+@app.route(f'/receipts/<receipt_id>/points', methods=["GET"])
 def points_awarded(receipt_id: str):
     """ Returns the points awarded for the receipt with the given id.
 
@@ -126,10 +125,12 @@ def points_awarded(receipt_id: str):
         :returns: the points awarded for the receipt
     """
 
-    # TODO
-    # 1. validate the parameter
-    # 2. get (or compute) the points of the receipt with this ID
-    # 3. respond
+    # validate the parameter
+    if receipts is None or (points := receipts.get(receipt_id)) is None:
+        return jsonify("No receipt found for that ID."), 404
+
+    # return the points awarded, if the receipt exist
+    return jsonify(points), 200
 
 
 if __name__ == '__main__':
