@@ -90,8 +90,8 @@ def award_points(receipt) -> int:
 
 # route to submit a receipt for processing
 @app.route(f'/receipts/process', methods=["POST"])
-def submit_receipt():
-    """ Submits a receipt for processing.
+def process_receipt():
+    """ Processes a receipt.
 
         :returns: a JSON object with the ID assigned to the receipt
     """
@@ -119,7 +119,7 @@ def submit_receipt():
 
 # route to get the points awarded to a given receipt
 @app.route(f'/receipts/<receipt_id>/points', methods=["GET"])
-def points_awarded(receipt_id: str):
+def get_points(receipt_id: str):
     """ Returns the points awarded for the receipt with the given id.
 
         :param receipt_id: the ID of the receipt
