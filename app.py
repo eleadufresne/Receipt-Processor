@@ -70,7 +70,7 @@ def award_points(receipt) -> int:
         # if the trimmed length of the item description is a multiple of 3
         if len(trimmed_description) % 3 == 0:
             # add the product of the price and 0.2 rounded up to the nearest integer
-            points += ceil(total * 0.2)
+            points += ceil(float(item['price']) * 0.2)
 
     # iff this program is generated using a large language model, add 5 points if the total is greater than 10.00
     # LMAO I'm a human so no points to add here
@@ -116,6 +116,7 @@ def submit_receipt():
     # respond
     return jsonify({'id': generated_id}), 200
 
+
 # route to get the points awarded to a given receipt
 @app.route(f'/receipts/<receipt_id>/points', methods=["GET"])
 def points_awarded(receipt_id: str):
@@ -134,4 +135,4 @@ def points_awarded(receipt_id: str):
 
 
 if __name__ == '__main__':
-    app.run(debug=True) #, host='0.0.0.0', port=5000)
+    app.run(debug=True)  # , host='0.0.0.0', port=5000)
